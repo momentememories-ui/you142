@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>will you be my girlfriend?</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>will you be my girlfriend?🌸💗</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Prompt:wght@300;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff5c8a;
@@ -14,14 +14,16 @@
         }
 
         body {
-            font-family: 'Kanit', sans-serif;
-            background-color: var(--bg);
-            color: var(--accent);
             margin: 0; padding: 0;
-            overflow: hidden;
+            background: url('photo11.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Prompt', 'Kanit', sans-serif;
             height: 100vh; width: 100vw;
+            overflow: hidden;
+            touch-action: manipulation;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
+            position: relative;
         }
 
         /* --- BACKGROUND FLOATERS --- */
@@ -39,15 +41,16 @@
             100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
 
-        .page {
+        /* --- COMMON STAGES & PAGES --- */
+        .stage-page {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s; z-index: 10;
+            display: none; opacity: 0; transition: opacity 0.8s ease; z-index: 10;
+            flex-direction: column; align-items: center; justify-content: center;
             padding: 20px; box-sizing: border-box;
         }
-        .active { display: flex; }
+        .stage-page.active { display: flex; opacity: 1; }
 
-        /* --- PAGE 1: ENVELOPE --- */
+        /* --- STEP 1: ENVELOPE --- */
         .chase-area { position: relative; width: 100%; height: 100%; }
         .flying-envelope {
             position: absolute; width: 140px; height: 90px;
@@ -72,7 +75,60 @@
         }
         @keyframes pulse { 50% { opacity: 0.6; transform: scale(0.95); } }
 
-        /* --- PAGE 2: HEART TAP --- */
+        /* --- STEP 2: GARDEN & WATERING --- */
+        .butterfly {
+            position: absolute; width: 20px; height: 20px;
+            pointer-events: none; z-index: 1; font-size: 20px;
+            animation: flying 12s linear infinite;
+        }
+        @keyframes flying {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(400px, -500px) rotate(360deg); opacity: 0; }
+        }
+
+        #status-text { 
+            color: #5d4037; font-size: 1rem; margin-bottom: 20px; 
+            z-index: 10; text-align: center; width: 85%;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            font-weight: 600;
+        }
+
+        #plant-container {
+            width: 280px; height: 380px;
+            display: flex; justify-content: center; align-items: flex-end;
+            position: relative; z-index: 5; 
+        }
+
+        #main-plant-img {
+            max-width: 100%; max-height: 100%;
+            object-fit: contain;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #nong-img {
+            position: absolute; 
+            bottom: 55%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 80px; height: auto;
+            cursor: pointer; z-index: 15; opacity: 0;
+            transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        #nong-img.show { 
+            opacity: 1;
+            transform: translate(60px, -60px) scale(1);
+            animation: floatingNong 2s ease-in-out infinite alternate;
+        }
+        @keyframes floatingNong {
+            from { transform: translate(60px, -60px) scale(1); }
+            to { transform: translate(65px, -75px) scale(1.05); }
+        }
+
+        #touch-area { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 6; cursor: pointer; }
+        #watering-can-img { position: fixed; width: 80px; height: 80px; pointer-events: none; display: none; z-index: 100; transform: rotate(-20deg); }
+
+        /* --- STEP 3: HEART TAP --- */
         .heart-container {
             width: 220px; height: 200px; position: relative; cursor: pointer;
             transition: transform 0.1s; filter: drop-shadow(0 10px 20px rgba(255, 92, 138, 0.4));
@@ -81,12 +137,9 @@
         .tap-msg { margin-top: 25px; color: #ff5c8a; font-size: 1.2rem; animation: blink 1s infinite; text-align: center; font-weight: 400; }
         @keyframes blink { 50% { opacity: 0.5; } }
 
-        /* --- PAGE 3: SCRATCH --- */
+        /* --- STEP 4: SCRATCH --- */
         .scratch-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         .scratch-box {
             position: relative; width: 300px; height: 300px;
@@ -94,14 +147,10 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden;
         }
         .scratch-hint {
-            margin-top: 20px;
-            color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-align: center;
+            margin-top: 20px; color: var(--primary); font-size: 1.2rem; font-weight: 600; text-align: center;
         }
 
-        /* --- PAGE 4: GALLERY GAME --- */
+        /* --- STEP 5: GALLERY GAME --- */
         .room-scene {
             width: 100%; height: 100%; position: relative;
             background-image: url('photo6.jpg'); 
@@ -151,12 +200,12 @@
         .modal-card img { width: 100%; border-radius: 3px; margin-bottom: 10px; }
         .btn-keep {
             background: var(--primary); color: white; border: none;
-            padding: 10px 25px; border-radius: 30px; font-family: 'Kanit';
+            padding: 10px 25px; border-radius: 30px; font-family: 'Kanit', sans-serif;
             font-size: 1rem; cursor: pointer; margin-top: 15px;
         }
         @keyframes zoomIn { from { transform: scale(0.5); } to { transform: scale(1); } }
 
-        /* --- FINAL --- */
+        /* --- STEP 6: FINAL STAGE --- */
         .final-msg-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255,255,255,0.9); z-index: 200;
@@ -177,10 +226,11 @@
 </head>
 <body onclick="playAudio()">
 
-    <audio id="bgm" loop><source src="song.mp3" type="audio/mpeg"></audio>
+    <audio id="bg-music" src="song.mp3" loop></audio>
     <div class="bg-floaters" id="bgFloaters"></div>
 
-    <div id="page1" class="page active">
+    <!-- 1. ซองจดหมายบิน -->
+    <div id="step-envelope" class="stage-page active">
         <div class="chase-area">
             <h2 style="text-align:center; margin-top:100px; color:var(--accent);">จดหมายรักฉบับนี้<br>ต้องใช้ความพยายามนะ! 😝</h2>
             <div class="flying-envelope" id="envelope" onmouseover="moveEnv()" ontouchstart="moveEnvMobile(event)">
@@ -190,7 +240,21 @@
         <div class="music-hint">🎵 แตะหน้าจอเพื่อเริ่ม 🎵</div>
     </div>
 
-    <div id="page2" class="page">
+    <!-- 2. รดน้ำต้นไม้ -->
+    <div id="step-garden" class="stage-page">
+        <h1 id="status-text">เธอช่วยรดน้ำให้ต้นไม้ต้นนี้หน่อยนะ🌱</h1>
+
+        <div id="plant-container">
+            <img id="main-plant-img" src="stage1.png">
+            <img id="nong-img" src="nong.png" onclick="goToStep('step-heart')">
+        </div>
+
+        <div id="touch-area"></div>
+        <img id="watering-can-img" src="water-can.png">
+    </div>
+
+    <!-- 3. เติมหัวใจ -->
+    <div id="step-heart" class="stage-page">
         <div class="heart-container" onclick="fillHeart()">
             <svg viewBox="0 0 200 200" width="100%" height="100%">
                 <defs>
@@ -205,7 +269,8 @@
         <p class="tap-msg">ช่วยเติมหัวใจให้เต็มหน่อยนะ... ❤️</p>
     </div>
 
-    <div id="page3" class="page">
+    <!-- 4. ขูดรูป -->
+    <div id="step-scratch" class="stage-page">
         <div class="scratch-container">
             <div class="scratch-box">
                 <img src="photo7.jpg" style="width:100%; height:100%; object-fit:cover;">
@@ -215,7 +280,8 @@
         </div>
     </div>
 
-    <div id="page4" class="page" style="padding:0;">
+    <!-- 5. ตามหารูปภาพ 5 ใบ -->
+    <div id="step-gallery" class="stage-page" style="padding:0;">
         <div class="inventory">
             <div class="inv-slot" id="slot1"></div><div class="inv-slot" id="slot2"></div><div class="inv-slot" id="slot3"></div><div class="inv-slot" id="slot4"></div><div class="inv-slot" id="slot5"></div>
         </div>
@@ -229,6 +295,7 @@
         </div>
     </div>
 
+    <!-- Preview Modal สำหรับโชว์รูปที่หาเจอ -->
     <div class="modal-overlay" id="previewModal">
         <div class="modal-card">
             <img src="" id="previewImg">
@@ -237,6 +304,7 @@
         </div>
     </div>
 
+    <!-- 6. ข้อความสุดท้าย -->
     <div class="final-msg-container" id="finalMsgContainer">
         <div class="final-msg-box">
             <p>การที่เราเลือกเธอ<br>นั่นหมายความว่า<br>เรารักทุกอย่างที่เป็นเธอ<br>ต่อให้เธอไม่ได้สมบูรณ์แบบ<br>เราก็ยังรักในความ<br>ไม่สมบูรณ์แบบของเธอ<br>เพราะเราเอง<br>"ก็ไม่ได้สมบูรณ์แบบไปซะทุกอย่าง"<br><br><span class="pink-text">เป็นแฟนกันนะ🤍</span></p>
@@ -244,25 +312,42 @@
     </div>
 
     <script>
-        const photos = [
-            { src: "photo1.jpg", caption: "วันแรกที่ตุ้ยทักมา" },
-            { src: "photo2.jpg", caption: "รูปท้องฟ้าแรกที่ตุ้ยถ่ายให้" },
-            { src: "photo3.jpg", caption: "ชอบรอยยิ้ม\nที่ดูเมื่อไหร่ก็ไม่เบื่อ" },
-            { src: "photo4.jpg", caption: "นี่ก็ยิ้ม🤍" },
-            { src: "photo5.jpg", caption: "น่ารักชะมัด🤍" }
-        ];
-
+        // --- AUDIO SYSTEM ---
+        const bgMusic = document.getElementById('bg-music');
         let audioPlaying = false;
+
         function playAudio() {
             if(!audioPlaying) {
-                document.getElementById('bgm').play().catch(()=>{});
+                bgMusic.play().catch(e => console.log(e));
                 audioPlaying = true;
-                document.querySelector('.music-hint').style.display = 'none';
+                const hint = document.querySelector('.music-hint');
+                if (hint) hint.style.display = 'none';
             }
         }
-        
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.body.addEventListener('pointerdown', playAudio, { once: true });
+            createFloaters('bgFloaters', 20);
+        });
+
+        // --- NAVIGATION CONTROLLER ---
+        function goToStep(stepId) {
+            document.querySelectorAll('.stage-page').forEach(p => {
+                p.style.opacity = '0';
+                setTimeout(() => p.classList.remove('active'), 500);
+            });
+            setTimeout(() => {
+                const target = document.getElementById(stepId);
+                target.classList.add('active');
+                setTimeout(() => target.style.opacity = '1', 50);
+                
+                if(stepId === 'step-scratch') startScratch();
+            }, 500);
+        }
+
         function createFloaters(containerId, num) {
             const container = document.getElementById(containerId);
+            if (!container || container.childElementCount > 0) return;
             const ems = ['🌸', '❤️', '💌', '🌹', '✨', '💖'];
             for(let i=0; i<num; i++) {
                 let el = document.createElement('div');
@@ -274,47 +359,99 @@
                 container.appendChild(el);
             }
         }
-        createFloaters('bgFloaters', 20);
 
-        function goTo(id) {
-            document.querySelectorAll('.page').forEach(p => {
-                p.style.opacity = 0;
-                setTimeout(() => p.classList.remove('active'), 500);
-            });
-            setTimeout(() => {
-                const p = document.getElementById(id);
-                p.classList.add('active');
-                p.style.opacity = 1;
-                if(id==='page3') startScratch();
-            }, 500);
-        }
-
-        // หน้า 1 Logic
+        // --- STEP 1: FLYING ENVELOPE ---
         const env = document.getElementById('envelope');
         function moveEnv() {
             const x = Math.random() * (window.innerWidth - 150);
             const y = Math.random() * (window.innerHeight - 150);
             env.style.left = x + 'px'; env.style.top = y + 'px';
         }
-        let touches = 0;
+        let envTouches = 0;
         function moveEnvMobile(e) {
-            touches++;
-            if(touches < 4) { e.preventDefault(); moveEnv(); }
-            else { goTo('page2'); }
+            envTouches++;
+            if(envTouches < 4) { e.preventDefault(); moveEnv(); }
+            else { goToStep('step-garden'); }
         }
-        env.onclick = () => goTo('page2');
+        env.onclick = () => goToStep('step-garden');
 
-        // หน้า 2 Logic (เพิ่มทีละ 1%)
+        // --- STEP 2: GARDEN & WATERING ---
+        function createButterflies() {
+            const emojis = ['💗', '🌸'];
+            for(let i=0; i<12; i++) {
+                const b = document.createElement('div');
+                b.className = 'butterfly';
+                b.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                b.style.left = Math.random() * 90 + 'vw';
+                b.style.top = Math.random() * 90 + 'vh';
+                b.style.animationDelay = Math.random() * 5 + 's';
+                document.getElementById('step-garden').appendChild(b);
+            }
+        }
+        createButterflies();
+
+        let waterCount = 0;
+        let isGardenComplete = false;
+        
+        const statusText = document.getElementById('status-text');
+        const plantImg = document.getElementById('main-plant-img');
+        const waterCan = document.getElementById('watering-can-img');
+        const touchArea = document.getElementById('touch-area');
+        const nongImg = document.getElementById('nong-img');
+
+        touchArea.addEventListener('pointerdown', (e) => {
+            if (isGardenComplete) return;
+            waterCount++;
+            
+            if (waterCount <= 20) {
+                statusText.innerText = `เย้! ได้น้ำจากเธอแล้วเริ่มโตเลย (${waterCount}%)`;
+            } else if (waterCount <= 40) {
+                statusText.innerText = `ขอบคุณที่ตั้งใจเลี้ยงดูแลอย่างดีนะ (${waterCount}%)`;
+            } else if (waterCount <= 60) {
+                statusText.innerText = `ต้นไม้ของเรากำลังเติบโตด้วยความรักแล้วนะ (${waterCount}%)`;
+            } else if (waterCount <= 80) {
+                statusText.innerText = `อีกนิดเดียวต้นไม้ของเราจะสมบูรณ์แบบแล้วนะ (${waterCount}%)`;
+            } else {
+                statusText.innerText = `อีกนิดนะคะ ต้นไม้ของเราเติบโตเต็มที่แล้ว (${waterCount}%)`;
+            }
+            
+            if(waterCount === 20) plantImg.src = 'stage2.png';
+            if(waterCount === 40) plantImg.src = 'stage3.png';
+            if(waterCount === 60) plantImg.src = 'stage4.png';
+            if(waterCount === 80) plantImg.src = 'stage5.png';
+            
+            if(waterCount >= 100) {
+                plantImg.src = 'stage6.png';
+                isGardenComplete = true;
+                waterCan.remove();
+                touchArea.remove();
+                
+                setTimeout(() => { 
+                    nongImg.classList.add('show'); 
+                    statusText.innerText = `มาเก็บเกี่ยวกัน...ลองกดดูสิ?`; 
+                }, 800);
+            } else {
+                waterCan.style.display = "block";
+                waterCan.style.left = (e.clientX - 40) + "px";
+                waterCan.style.top = (e.clientY - 40) + "px";
+                plantImg.style.transform = "scale(1.05)";
+                setTimeout(() => plantImg.style.transform = "scale(1)", 50);
+            }
+        });
+
+        touchArea.addEventListener('pointerup', () => { if(waterCan) waterCan.style.display = "none"; });
+
+        // --- STEP 3: FILL HEART ---
         let heartPercent = 0;
         function fillHeart() {
-            heartPercent += 1; 
+            heartPercent += 2; 
             if(heartPercent > 100) heartPercent = 100;
             document.getElementById('waterLevel').setAttribute('y', 200 - (200 * (heartPercent/100)));
             document.getElementById('percent').innerText = heartPercent + "%";
-            if(heartPercent >= 100) setTimeout(() => goTo('page3'), 600);
+            if(heartPercent >= 100) setTimeout(() => goToStep('step-scratch'), 600);
         }
 
-        // หน้า 3 Logic (ขูด 99% และค้างไว้ 3 วินาที)
+        // --- STEP 4: SCRATCH CANVAS ---
         let scratchCompleted = false;
         function startScratch() {
             const c = document.getElementById('scratchCanvas'); const ctx = c.getContext('2d');
@@ -331,9 +468,9 @@
                 const d = ctx.getImageData(0,0,300,300).data;
                 let cleared = 0;
                 for(let i=3; i<d.length; i+=4) if(d[i]===0) cleared++;
-                if(cleared/(300*300) >= 0.99) { // ขูดถึง 99%
+                if(cleared/(300*300) >= 0.85) {
                     scratchCompleted = true;
-                    setTimeout(() => goTo('page4'), 3000); // ค้างไว้ 3 วินาที (3000ms)
+                    setTimeout(() => goToStep('step-gallery'), 1500);
                 }
             }
             const move = (e) => { 
@@ -351,7 +488,15 @@
             c.addEventListener('touchmove', move);
         }
 
-        // หน้า 4 Logic
+        // --- STEP 5 & 6: GALLERY GAME & FINAL MESSAGE ---
+        const photos = [
+            { src: "photo1.jpg", caption: "วันแรกที่ตุ้ยทักมา" },
+            { src: "photo2.jpg", caption: "รูปท้องฟ้าแรกที่ตุ้ยถ่ายให้" },
+            { src: "photo3.jpg", caption: "ชอบรอยยิ้ม\nที่ดูเมื่อไหร่ก็ไม่เบื่อ" },
+            { src: "photo4.jpg", caption: "นี่ก็ยิ้ม🤍" },
+            { src: "photo5.jpg", caption: "น่ารักที่ชะมัด🤍" }
+        ];
+
         let collected = 0;
         function foundPhoto(idx, el) {
             document.getElementById('previewImg').src = photos[idx-1].src;
@@ -362,6 +507,7 @@
         function confirmKeep() {
             document.getElementById('previewModal').style.display = 'none';
             window.lastFoundEl.style.opacity = '0';
+            window.lastFoundEl.style.pointerEvents = 'none';
             const slot = document.getElementById('slot' + window.lastFoundIdx);
             slot.classList.add('filled'); slot.innerHTML = `<img src="${photos[window.lastFoundIdx-1].src}">`;
             collected++;
