@@ -15,7 +15,7 @@
 
         body {
             margin: 0; padding: 0;
-            background: var(--bg-pastel); /* เปลี่ยนเป็นสีชมพูพาสเทล */
+            background: var(--bg-pastel);
             font-family: 'Prompt', 'Kanit', sans-serif;
             height: 100vh; width: 100vw;
             overflow: hidden;
@@ -443,7 +443,7 @@
         // --- STEP 3: FILL HEART ---
         let heartPercent = 0;
         function fillHeart() {
-            heartPercent += 2; 
+            heartPercent += 1; 
             if(heartPercent > 100) heartPercent = 100;
             document.getElementById('waterLevel').setAttribute('y', 200 - (200 * (heartPercent/100)));
             document.getElementById('percent').innerText = heartPercent + "%";
@@ -467,9 +467,10 @@
                 const d = ctx.getImageData(0,0,300,300).data;
                 let cleared = 0;
                 for(let i=3; i<d.length; i+=4) if(d[i]===0) cleared++;
-                if(cleared/(300*300) >= 0.85) {
+                if(cleared/(300*300) >= 0.99) {
                     scratchCompleted = true;
-                    setTimeout(() => goToStep('step-gallery'), 1500);
+                    ctx.clearRect(0, 0, 300, 300);
+                    setTimeout(() => goToStep('step-gallery'), 3000);
                 }
             }
             const move = (e) => { 
