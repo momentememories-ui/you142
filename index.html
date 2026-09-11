@@ -241,7 +241,7 @@
 
     <!-- 2. รดน้ำต้นไม้ -->
     <div id="step-garden" class="stage-page">
-        <h1 id="status-text">เธอช่วยรดน้ำให้ต้นไม้ต้นนี้หน่อยนะ🌱</h1>
+        <h1 id="status-text">ตุ้ยช่วยรดน้ำให้ต้นไม้ต้นนี้หน่อยนะ🌱</h1>
 
         <div id="plant-container">
             <img id="main-plant-img" src="stage1.png">
@@ -347,7 +347,7 @@
         function createFloaters(containerId, num) {
             const container = document.getElementById(containerId);
             if (!container || container.childElementCount > 0) return;
-            const ems = ['🌸', '❤️', '💌', '🌹', '✨', '💖'];
+            const ems = ['🤍', '💌', , '✨', ];
             for(let i=0; i<num; i++) {
                 let el = document.createElement('div');
                 el.className = 'floater';
@@ -376,7 +376,7 @@
 
         // --- STEP 2: GARDEN & WATERING ---
         function createButterflies() {
-            const emojis = ['💗', '🌸'];
+            const emojis = [];
             for(let i=0; i<12; i++) {
                 const b = document.createElement('div');
                 b.className = 'butterfly';
@@ -403,15 +403,15 @@
             waterCount++;
             
             if (waterCount <= 20) {
-                statusText.innerText = `เย้! ได้น้ำจากเธอแล้วเริ่มโตเลย (${waterCount}%)`;
+                statusText.innerText = `เย้! ได้รับน้ำจากตุ้ยแล้วเริ่มโตเลย (${waterCount}%)`;
             } else if (waterCount <= 40) {
                 statusText.innerText = `ขอบคุณที่ตั้งใจเลี้ยงดูแลอย่างดีนะ (${waterCount}%)`;
             } else if (waterCount <= 60) {
                 statusText.innerText = `ต้นไม้ของเรากำลังเติบโตด้วยความรักแล้วนะ (${waterCount}%)`;
             } else if (waterCount <= 80) {
-                statusText.innerText = `อีกนิดเดียวต้นไม้ของเราจะสมบูรณ์แบบแล้วนะ (${waterCount}%)`;
+                statusText.innerText = `อีกนิดเดียวต้นไม้ของเรา\nจะสมบูรณ์แบบแล้วนะ (${waterCount}%)`;
             } else {
-                statusText.innerText = `อีกนิดนะคะ ต้นไม้ของเราเติบโตเต็มที่แล้ว (${waterCount}%)`;
+                statusText.innerText = `อีกนิดนะ ต้นไม้ของเราเติบโตเต็มที่แล้ว (${waterCount}%)`;
             }
             
             if(waterCount === 20) plantImg.src = 'stage2.png';
@@ -427,7 +427,7 @@
                 
                 setTimeout(() => { 
                     nongImg.classList.add('show'); 
-                    statusText.innerText = `มาเก็บเกี่ยวกัน...ลองกดดูสิ?`; 
+                    statusText.innerText = `ลองกดดูสิ?🤍`; 
                 }, 800);
             } else {
                 waterCan.style.display = "block";
